@@ -91,13 +91,13 @@ def plot_attention(attn_w, tokens=None, title="Attention Weights", cmap="Blues")
 # # 实验1 同时找最大值和最小值的下标
 
 # %%
-def get_batch(batch, sql_len, low, high):
+def get_batch_max_min(batch, sql_len, low, high):
     train_x = torch.randint(low, high, (batch, sql_len), dtype=torch.long)  # (batch_size, n)
     max_y = torch.argmax(train_x, dim=-1)  # (batch_size,)
     min_y = torch.argmin(train_x, dim=-1)  # (batch_size,)
     return train_x, torch.stack([max_y, min_y], dim=-1)  # (batch_size, 2)
 
-epochs = 1000
+epochs = 300
 
 model = MultiHeadAttention(vocab_size=100, output_dim=2, d_model=16, num_heads=4)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
@@ -105,28 +105,43 @@ criterion = nn.CrossEntropyLoss()
 
 model.train()
 for i in range(epochs):
-    train_x, train_y = get_batch(1024, 10, 0, 100)
-    # 将 (batch, len_n) → (batch, len_n, 1)，每个数字作为一个 token
+    train_x, train_y = get_batch_max_min(1024, 10, 0, 100)
     optimizer.zero_grad()
-    pred = model(train_x)
-    loss = criterion(pred, train_y)
+    pred = model(train_x)  # (batch, seq_len, 2)
+
+    pred_max = pred[:, :, 0]  # (batch, seq_len)
+    pred_min = pred[:, :, 1]  # (batch, seq_len)
+    loss_max = criterion(pred_max, train_y[:, 0])
+    loss_min = criterion(pred_min, train_y[:, 1])
+    loss = loss_max + loss_min
+
     loss.backward()
     optimizer.step()
-    if (i+1) % 100 == 0:
-        print(f"Epoch {i+1}, Loss: {loss.item():.4f}")
+    if (i+1) % 10 == 0:
+        print(
+            f"Epoch {i+1}, Loss: {loss.item():.4f}, "
+            f"MaxLoss: {loss_max.item():.4f}, MinLoss: {loss_min.item():.4f}"
+        )
 
 
 
 # %%
-test_x, test_y = get_batch(3, 10, 1, 100)
+test_x, test_y = get_batch_max_min(4, 10, 1, 100)
+sample_tokens = [str(v) for v in test_x[0].tolist()]
+
 model.eval()
 with torch.no_grad():
     pred = model(test_x)
-    print("Test Input:\n", test_x)
-    print("Predicted:\n", pred.argmax(dim=1))
-    print("Actual:\n", test_y)
+    pred_max = pred[:, :, 0].argmax(dim=-1)
+    pred_min = pred[:, :, 1].argmax(dim=-1)
 
-    plot_attention(model.attn_w, tokens=[str(i) for i in range(10)], title="Multi-Head Attention")
+    for i in range(test_x.size(0)):
+        print(f"input : {test_x[i].tolist()}")
+        print(f"pred  : [max={pred_max[i].item()}, min={pred_min[i].item()}]")
+        print(f"target: [max={test_y[i,0].item()}, min={test_y[i,1].item()}]")
+        print("-" * 30)
+
+    plot_attention(model.attn_w, tokens=sample_tokens, title="Exp1 Max-Min Attention")
 
 
 # %% [markdown]
