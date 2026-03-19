@@ -1,23 +1,68 @@
-# 前言
+# Transformer 从零学习与实现
 
-此为我学习Transformer架构而写
+这个仓库记录了我学习并用 Pytorch 复现 Transformer 的全过程。我希望把抽象的公式变成可以运行、可以观察、可以复现实验结果的代码，所以每一章都配了 Notebook 和对应脚本。
 
-章节如下
+目前项目第一章已经做了比较完整的讲解，适合初学者按顺序阅读和跟着跑实验。后面的章节已经有代码和实验雏形，但文字解释还在持续补充，所以现在更适合作为“先跑通、再细化”的进度版本。
 
-## SingleHeadSelfAttention
+## 你会在这里看到什么
 
-实现最简单的注意力机制
+内容按章节推进，从单头注意力开始，逐步加入多头机制、RoPE、Transformer Block，最后到一个可训练的 Encoder。我的写法会尽量保持朴素，不依赖复杂封装，方便直接对照张量形状和计算过程。
 
-## MulitHandAttention
+如果你是第一次系统学注意力机制，这个仓库可以当作练手路线图。你可以先把序章和第一章吃透，再把后续章节当作扩展练习。
 
-实现多头注意力增强模型表达能力
+## 章节进度
 
-## AttentionWithRoPE
+| 章节 | 当前状态 | 说明 |
+|---|---|---|
+| 00_Preface | 基础准备 | PyTorch 基本组件与训练流程预热 |
+| 01_SingleHeadSelfAttention | 有初步解释 | 单头注意力实现，含最大值/最小值位置任务和注意力可视化 |
+| 02_MulitHandAttention | 进行中 | 多头注意力代码和实验已可运行，文字讲解待细化 |
+| 03_AttentionWithRoPE | 进行中 | RoPE 代码和实验已可运行，文字讲解待细化 |
+| 04_TransformerBlock | 进行中 | Block 组装与排序实验已可运行，文字讲解待细化 |
+| 05_TransformerEncoder | 进行中 | 多层 Encoder 训练流程已打通，文档仍在完善 |
 
-引入RoPE位置编码解决位置问题
+## 如何使用
 
-## TransformerBlock
+### 第一步：准备 Python 环境
 
-加入前馈神经网络层, LayerNorm和残差连接拓展多头注意力
+建议使用 Python 3.13 或更高版本。先克隆并进入项目根目录，再安装依赖。
 
-## TransformerEncoder
+如果你使用 uv，请执行：
+
+```bash
+uv sync
+```
+
+如果你使用 pip，请执行：
+
+```bash
+pip install -e .
+```
+
+### 第二步：运行 Notebook 版本
+
+在项目根目录启动：
+
+```bash
+jupyter notebook
+```
+
+然后按下面顺序学习：
+
+1. 先打开 `notebooks/00_Preface/Preparation.ipynb`，确认你熟悉基础训练流程。
+2. 再打开 `notebooks/01_SingleHeadSelfAttention/SingleHeadSelfAttention.ipynb`，这是当前讲解最完整的一章。
+3. 每个 Notebook 都建议从上到下逐个单元运行，不要跳着跑，避免变量状态不一致。
+4. 在第一章里重点观察训练日志和注意力热力图，先理解“模型为什么会关注这些位置”。
+
+## 项目结构说明
+
+notebooks 目录下每一章都有两个文件。ipynb 负责讲解和交互实验，py 文件是同章的脚本化版本，便于直接执行。
+
+## 后续更新方向
+
+接下来我会优先补齐第二章到第五章的讲解文档，让这些章节达到和第一章接近的可读性。与此同时，也会逐步补充更规范的评估和训练细节，让实验结果更稳定、更容易复现。
+
+欢迎交流建议。
+
+## 参考
+
