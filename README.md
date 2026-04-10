@@ -1,10 +1,12 @@
 # Transformer 研究笔记与从零开始的复现
 
-这个仓库记录了我学习并用 Pytorch 复现 Transformer 的全过程. 我希望把抽象的公式变成可以运行, 可以观察, 可以复现实验结果的代码
+Transformer 是当今 AI 大模型的核心理论基石. 可以说, 没有 Transformer 这篇开创性论文, 就很难有今天大模型的快速发展. 其重要性不言而喻, 而系统学习 Transformer 架构, 也是我们深入理解大模型原理最根本, 最有效的路径之一.
 
-我并非严格按照 Attention Is All You Need 原论文的架构做，而是做了简化并使用了现代更常用的实现
+这个仓库记录了我学习并用 Pytorch 复现 Transformer 的全过程. 我希望把抽象的公式变成可以运行, 可以观察, 可以复现实验结果的代码.
 
-项目适合初学者按顺序阅读和跟着跑实验, 每个章节都有对应的代码讲解和实验
+我并非严格按照 Attention Is All You Need 原论文的架构做，而是做了简化并使用了现代更常用的实现.
+
+项目适合初学者按顺序阅读和跟着跑实验, 每个章节都有对应的代码讲解和实验.
 
 ## 你会在这里看到什么
 
@@ -53,32 +55,23 @@ cd inside-transformer
 - 如果你使用 uv:
 
 ```bash
+# 1. 下载所需要的包
 uv sync
-```
 
-进入虚拟环境
-
-```bash
+# 2. 进入虚拟环境
 .venv/Scripts/activate
 ```
 
 - 如果你使用 pip:
 
-创建虚拟环境
-
 ```bash
+# 创建虚拟环境
 python -m venv .venv
-```
 
-进入虚拟环境
-
-```bash
+# 进入虚拟环境
 .venv/Scripts/activate
-```
 
-安装依赖
-
-```bash
+# 安装依赖
 pip install -e .
 ```
 
@@ -96,4 +89,4 @@ jupyter notebook
 
 首先就是神级经典论文**Attention Is All You Need**, 没有这篇论文也就没有现在的大语言模型. <https://arxiv.org/abs/1706.03762>
 
-然后是李沐老师的**动手学深度学习**一书, 本项目参考了该书的预备知识和第十章的注意力机制, 该书在网上能免费看. <https://zh.d2l.ai>
+然后是李沐老师的**动手学深度学习**一书, 本项目主要参考了该书的预备知识和第十章的注意力机制, 该书在网上能免费看. <https://zh.d2l.ai>
