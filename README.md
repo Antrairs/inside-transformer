@@ -35,9 +35,9 @@ Transformer 是当今 AI 大模型的核心理论基石. 可以说, 没有 Trans
 | [前言](notebooks/00_Preface/Preparation.ipynb) | 完成 | PyTorch 基本组件与训练流程预热 |
 | [单头自注意力](notebooks/01_SingleHeadSelfAttention/SingleHeadSelfAttention.ipynb) | 完成 | 单头注意力的代码解释和实验验证效果 |
 | [多头注意力](notebooks/02_MultiHeadAttention/MultiHeadAttention.ipynb) | 完成 | 在单头注意力的基础上实现多头注意力的代码解释和实验 |
-| [RoPE位置编码](notebooks/03_AttentionWithRoPE/AttentionWithRoPE.ipynb) | 完成 | 用RoPE位置编码注入位置信息, 包含代码解释和实验 |
-| [Transformer编码器](notebooks/04_TransformerEncoder/TransformerEncoder.ipynb) | 进行中 | 将组件组装并堆叠N层为 TransformerEncoder |
-| [Transformer解码器](notebooks/05_TransformerDecoder/TransformerDecoder.ipynb) | 待做 | TransformerDecoder 用于生成序列 |
+| [RoPE位置编码](notebooks/03_AttentionWithRoPE/AttentionWithRoPE.ipynb) | 完成 | 用 RoPE 位置编码注入位置信息, 包含代码解释和实验 |
+| [Transformer编码器](notebooks/04_TransformerEncoder/TransformerEncoder.ipynb) | 完成 | TransformerEncoder 在真实数据集实验 |
+| [Transformer解码器](notebooks/05_TransformerDecoder/TransformerDecoder.ipynb) | 进行中 | TransformerDecoder 用于生成序列 |
 
 ## 本地运行
 
@@ -52,7 +52,7 @@ cd inside-transformer
 
 ### 第二步: 选择工具
 
-- 如果你使用 uv:
+#### 如果你使用 uv
 
 ```bash
 # 1. 下载所需要的包
@@ -62,7 +62,7 @@ uv sync
 .venv/Scripts/activate
 ```
 
-- 如果你使用 pip:
+#### 如果你使用 pip
 
 ```bash
 # 创建虚拟环境
