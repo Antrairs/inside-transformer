@@ -11,14 +11,6 @@ dependencies = [
     "notebook>=7.5.4",
     "numpy>=2.4.2",
     "scikit-learn>=1.8.0",
-    "torch>=2.10.0",
+    "torch>=2.15.0",
     "transformers>=5.4.0",
 ]
-
-[tool.uv.sources]
-torch = { index = "pytorch-cu128" }
-
-[[tool.uv.index]]
-name = "pytorch-cu128"
-url = "https://download.pytorch.org/whl/cu128"
-explicit = true
